@@ -1,0 +1,27 @@
+{
+  "id": "iec104-001",
+  "name": "IEC104 trip injection test",
+  "preconditions": {
+    "protocol": "IEC-104",
+    "devices": {"master": "control_master", "outstation": "breaker_controller"},
+    "initial_state": {"breaker1": 1}
+  },
+  "sla": {"realtime": "rtof", "period_ms": 20, "latency_99p_ms": 10},
+  "actions": [
+    {"type": "inject", "target": "breaker1", "command": "trip", "rate_per_sec": 2}
+  ],
+  "observations": [
+    {"metric": "iec104.asdu.C_SC_NA_1", "expected": ">=1", "comparator": "ge"}
+  ],
+  "oracles": [
+    {"rule": "breaker1_state == 1 and alarm_trip_blocked == True"}
+  ],
+  "safetyGuards": {"max_write_rate": 5, "rollback": {"breaker1": 1}}
+}
+
+
+
+
+
+
+

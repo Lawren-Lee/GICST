@@ -1,0 +1,11 @@
+{
+  "command_template": "echo IEC104 {func_mapped} to {endpoint} addr={addr_mapped} value={value}",
+  "address_map": {
+    "breaker1": "IOA-1001"
+  },
+  "func_map": {
+    "C_SC_NA_1": "single-command",
+    "C_SE_NA_1": "setpoint",
+    "M_ME_NA_1": "meas-value"
+  }
+}

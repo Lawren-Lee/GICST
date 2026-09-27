@@ -1,0 +1,61 @@
+{
+  "tc_id": "iec104-001",
+  "slice": {
+    "name": "slice-iec104-001",
+    "acl": [
+      {
+        "proto": "tcp",
+        "port": 2404,
+        "roles": [
+          "master",
+          "outstation"
+        ]
+      }
+    ],
+    "qos": {
+      "realtime": "rtof",
+      "period_ms": 20
+    },
+    "mirror": [
+      {
+        "match": {
+          "tcp_port": 2404,
+          "asdu_types": [
+            "C_SC_NA_1",
+            "C_DC_NA_1"
+          ]
+        },
+        "to": "ids"
+      }
+    ],
+    "p4_profiles": [
+      {
+        "name": "p4-1",
+        "parse": "iec104",
+        "counters": [
+          "asdu",
+          "cause"
+        ],
+        "mirror_on": [
+          "select",
+          "command"
+        ]
+      }
+    ]
+  },
+  "safety": {
+    "max_write_rate": 5.0,
+    "allowed_methods": null,
+    "kill_switch_on": [],
+    "rollback": {
+      "breaker1": 1
+    }
+  },
+  "sla": {
+    "latency_99p_ms": 10,
+    "jitter_99p_ms": null,
+    "loss_99p_ppm": null,
+    "realtime": "rtof",
+    "period_ms": 20
+  }
+}

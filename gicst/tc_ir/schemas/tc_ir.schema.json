@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gicst.local/schemas/tc_ir.schema.json",
+  "title": "TC-IR",
+  "type": "object",
+  "required": ["id", "name", "preconditions", "actions"],
+  "properties": {
+    "id": {"type": "string"},
+    "name": {"type": "string"},
+    "version": {"type": "string"},
+    "preconditions": {"type": "object"},
+    "sla": {"type": ["object", "null"]},
+    "actions": {"type": "array"},
+    "observations": {"type": "array"},
+    "oracles": {"type": "array"},
+    "safetyGuards": {"type": ["object", "null"]}
+  }
+}

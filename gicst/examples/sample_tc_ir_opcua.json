@@ -1,0 +1,20 @@
+{
+  "id": "opcua-001",
+  "name": "OPCUA valve write test",
+  "preconditions": {
+    "protocol": "OPC-UA",
+    "devices": {"hmi": "10.0.0.10", "plc": "10.0.0.20"},
+    "initial_state": {"valve1": 0}
+  },
+  "sla": {"latency_99p_ms": 50, "realtime": "none"},
+  "actions": [
+    {"type": "write", "node": "ns=2;s=Valve1", "value": 1, "rate_per_sec": 1}
+  ],
+  "observations": [
+    {"metric": "opcua.method_call.count", "expected": ">=1", "comparator": "ge"}
+  ],
+  "oracles": [
+    {"rule": "hmi_alarm == True and plc_state == expected"}
+  ],
+  "safetyGuards": {"max_write_rate": 5, "allowed_methods": ["Write", "Read"], "rollback": {"valve1": 0}}
+}
